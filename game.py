@@ -68,6 +68,10 @@ def rauf(rect, dx, dy):
      #   screen.blit(self.python_image, self.point)
 
 
+# Переменная паузы (Сделал Дима)
+paused = False
+font = pygame.font.SysFont('Arial', 50)  # Шрифт для текста паузы
+
 class Player:
     def __init__(self, x, y, image_path):
         self.image = pygame.image.load(image_path)
@@ -159,6 +163,13 @@ while running:
     player.move(keys)
     bot.random_move()
 
+
+# Игровая логика работает только когда не на паузе (сделано димой)
+    if not paused:
+        keys = pygame.key.get_pressed()
+        player.move(keys)
+        bot.random_move()
+    
     for joystick in joysticks.values():
         player.move_joystick(joystick.get_axis(0),joystick.get_axis(1))
         for i in range(joystick.get_numaxes()):
